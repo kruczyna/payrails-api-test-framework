@@ -19,13 +19,22 @@ When('I request intraday data for symbol {string} with interval {string}', async
   response = await api.getIntraday(symbol, interval, apikey);
 });
 
+When('I request intraday data for symbol {string} without an interval', async function (symbol: string) {
+  response = await api.getIntraday(symbol, '', apikey);
+});
+
 Then('the response status should be {int}', async function (statusCode: number) {
   expect(response.status()).toBe(statusCode);
 });
 
 Then('the response should include intraday time series for interval {string}', async function (interval: string) {
   const body = await response.json();
-  const seriesKey = `Time Series (${interval})`;
-  expect(body[seriesKey]).toBeDefined();
-  expect(typeof body[seriesKey]).toBe('object');
+  const key = `Time Series (${interval})`;
+  expect(body[key]).toBeDefined();
+  expect(typeof body[key]).toBe('object');
+});
+
+Then('the response should include an error message', async function () {
+  const body = await response.json();
+  expect(body['Error Message']).toBeDefined();
 });

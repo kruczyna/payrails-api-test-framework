@@ -13,7 +13,7 @@ export class IntradayAPI {
     interval: string,
     apikey: string,
     month?: string,
-    outputsize: string = 'compact'
+    outputsize: string = 'compact',
   ): Promise<APIResponse> {
     const params: Record<string, string> = {
       function: 'TIME_SERIES_INTRADAY',
