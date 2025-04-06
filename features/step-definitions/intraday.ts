@@ -1,6 +1,7 @@
 import { Given, When, Then } from '@cucumber/cucumber';
 import { expect, APIResponse } from '@playwright/test';
 import { IntradayAPI } from '../../src/api/IntradayAPI';
+import { assertMetaDataStructure, assertTimeSeriesStructure } from './test-utils/assertions'
 import * as dotenv from 'dotenv';
 
 dotenv.config();
@@ -29,9 +30,12 @@ Then('the response status should be {int}', async function (statusCode: number) 
 
 Then('the response should include intraday time series for interval {string}', async function (interval: string) {
   const body = await response.json();
-  const key = `Time Series (${interval})`;
-  expect(body[key]).toBeDefined();
-  expect(typeof body[key]).toBe('object');
+  const timeSeriesKey = `Time Series (${interval})`;
+  const timeSeries = body[timeSeriesKey];
+  const metaData = body['Meta Data']
+
+  assertTimeSeriesStructure(timeSeries);
+  assertMetaDataStructure(metaData, interval);
 });
 
 Then('the response should include an error message', async function () {
