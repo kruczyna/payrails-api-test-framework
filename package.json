@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test:api:bdd": "cucumber-js"
+    "test:api:bdd": "cucumber-js",
+    "test:api:positive": "cucumber-js --tags '@positive'",
+    "test:api:negative": "cucumber-js --tags '@negative'"
   },
   "keywords": [],
   "author": "",
