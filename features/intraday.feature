@@ -12,4 +12,5 @@ Feature: TIME_SERIES_INTRADAY Endpoint
   Scenario: Missing interval should return error
     Given I have a valid API key
     When I request intraday data for symbol "IBM" without an interval
-    Then the response should include an error message
+    Then the response status should be 200
+    And the response should include an error message mentioning "TIME_SERIES_INTRADAY"

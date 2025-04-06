@@ -38,7 +38,8 @@ Then('the response should include intraday time series for interval {string}', a
   assertMetaDataStructure(metaData, interval);
 });
 
-Then('the response should include an error message', async function () {
+Then('the response should include an error message mentioning {string}', async function (functionName: string) {
   const body = await response.json();
-  expect(body['Error Message']).toBeDefined();
+  expect(body['Error Message']).toMatch(/Invalid API call/);
+  expect(body['Error Message']).toContain(functionName);
 });
