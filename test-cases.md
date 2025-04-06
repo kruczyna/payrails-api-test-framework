@@ -300,7 +300,7 @@ This test plan outlines manual and automated test cases for the AlphaVantage `TI
 | **Expected Result** | No events, logs, or DB actions are triggered unless explicitly enabled by system configuration. |
 | **Notes**         | *Only relevant if this API is wrapped by internal infrastructure or event-based logic. Skip for external, read-only usage.* |
 | **Priority**     | Medium |
-| **Tags**         | @observability @eventing @defensive |
+| **Tags**         | @observability @eventing |
 
 
 
@@ -313,11 +313,11 @@ This test plan outlines manual and automated test cases for the AlphaVantage `TI
 - JSON key check: `Meta Data` and `Time Series (5min)` exist
 - Implemented in: `intraday.feature` & `intraday.steps.ts`
 
-### ✅ Automated Test Case 2: `TC06`
-- Title: Invalid interval value
+### ✅ Automated Test Case 2: `TC07`
+- Title: Missing interval parameter
 - Type: Negative
-- Sends `interval=7min`
-- Asserts response includes `Error Message` or `Note`
+- Status code check: `200`
+- Error message check: Includes `TIME_SERIES_INTRADAY` in the response
 - Implemented in: `intraday.feature` & `intraday.steps.ts`
 
 
